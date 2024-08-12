@@ -252,7 +252,10 @@ def calculate_policy_mean(policy_all, group_assignment, HP):
 def calculate_policy_variance(policy_all, group_assignment, HP):
     group1_policy_variance = np.var(policy_all[:, :, group_assignment == 0, 0], axis=0).flatten()
     group2_policy_variance = np.var(policy_all[:, :, group_assignment == 1, 1], axis=0).flatten()
-    print(policy_all)
+    # print(policy_all)
+    print(policy_all[:, :, group_assignment == 0, 0], axis=0)
+    print("hahggah")
+    print(policy_all[:, :, group_assignment == 1, 1], axis=0)
     return group1_policy_variance, group2_policy_variance
 
 
