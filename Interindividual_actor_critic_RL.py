@@ -291,7 +291,7 @@ def calculate_metrics_over_time(HP):
 
     group1_policy_mean, group2_policy_mean = calculate_policy_mean(policy_all, group_assignment, HP)
     group1_policy_variance, group2_policy_variance = calculate_policy_variance(policy_all, group_assignment, HP)
-    group1_reward_mean, group2_reward_mean = calculate_reward_mean_by_group(V_all, HP)
+    group1_reward_mean, group2_reward_mean = calculate_reward_mean_by_group(V_all,group_assignment, HP)
 
     # Calculate mean value function for each group
     group1_value_mean, group2_value_mean = calculate_value_function_mean(V_all, group_assignment, HP)
