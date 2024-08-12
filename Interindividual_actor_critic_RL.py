@@ -309,14 +309,14 @@ def mean_plot_with_time(group1_policy_mean, group2_policy_mean,
     rounds = np.arange(n_rounds)
 
     pastel_colors = {
-        'group1_policy_mean': '#A3C1AD',  # Pastel green-grey
-        'group2_policy_mean': '#B19CD9',  # Pastel lavender
-        'group1_policy_variance': '#F4A582',  # Pastel coral
-        'group2_policy_variance': '#92A8D1',  # Pastel blue-grey
-        'group1_reward_mean': '#C4AEAD',  # Pastel rose
-        'group2_reward_mean': '#89CFF0',  # Pastel light blue
-        'group1_value_mean': '#C3B1E1',  # Pastel lilac
-        'group2_value_mean': '#779ECB',  # Pastel blue
+        'group1_policy_mean': '#FF6961',
+        'group2_policy_mean': '#77DD77',
+        'group1_policy_variance': '#FF6961',
+        'group2_policy_variance': '#77DD77',
+        'group1_reward_mean': '#FF6961',
+        'group2_reward_mean': '#77DD77',
+        'group1_value_mean': '#FF6961',
+        'group2_value_mean': '#77DD77',
     }
 
     fig, axs = plt.subplots(2, 2, figsize=(12, 8))
