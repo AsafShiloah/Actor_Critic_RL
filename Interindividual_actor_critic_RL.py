@@ -265,9 +265,9 @@ def calculate_value_function_mean(V_all, group_assignment, HP):
     group1_value_mean = np.mean(group1_values, axis=2)
     group2_value_mean = np.mean(group2_values, axis=2)
 
-    # Finally, average over the trials (axis=0), leaving a 1D array with one value per round
-    group1_value_mean = np.mean(group1_value_mean, axis=0)
-    group2_value_mean = np.mean(group2_value_mean, axis=0)
+    # Next, reshape to (100, 10) assuming nt=1000 and n_agents=10, then average over the agents
+    group1_value_mean = group1_value_mean.reshape((HP['nt'] // HP['n_agents'], HP['n_agents'])).mean(axis=1)
+    group2_value_mean = group2_value_mean.reshape((HP['nt'] // HP['n_agents'], HP['n_agents'])).mean(axis=1)
 
     return group1_value_mean, group2_value_mean
 
