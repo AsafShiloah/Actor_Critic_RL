@@ -244,8 +244,8 @@ def plot_policy_and_value_all_agents(HP, policy_all, V_all, group_assignment):
 
 
 def calculate_policy_mean(policy_all, group_assignment, HP):
-    group1_policy_mean = np.mean(policy_all[:, :, group_assignment == 0, 0], axis=1).flatten()
-    group2_policy_mean = np.mean(policy_all[:, :, group_assignment == 1, 1], axis=1).flatten()
+    group1_policy_mean = np.mean(policy_all[:, :, group_assignment == 0, 0], axis=0).flatten()
+    group2_policy_mean = np.mean(policy_all[:, :, group_assignment == 1, 1], axis=0).flatten()
     return group1_policy_mean, group2_policy_mean
 
 
