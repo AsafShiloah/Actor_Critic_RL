@@ -256,9 +256,6 @@ def calculate_policy_variance(policy_all, group_assignment, HP):
     return group1_policy_variance, group2_policy_variance
 
 
-
-
-
 def calculate_reward_mean(V_all, HP):
     reward_mean = np.mean(V_all, axis=(1, 2)).flatten()
     return reward_mean
@@ -270,14 +267,13 @@ def calculate_metrics_over_time(HP):
     policy_all, V_all, A_all = interindividual_actor_critic(HP, group_assignment, reward_mat, thetas_init='uniform',
                                                             return_values=True)
 
-
-
     group1_policy_mean, group2_policy_mean = calculate_policy_mean(policy_all, group_assignment, HP)
     group1_policy_variance, group2_policy_variance = calculate_policy_variance(policy_all, group_assignment, HP)
     reward_mean = calculate_reward_mean(V_all, HP)
 
-    group1_value_mean = np.mean(V_all[:, :, group_assignment == 0], axis=2).flatten()
-    group2_value_mean = np.mean(V_all[:, :, group_assignment == 1], axis=2).flatten()
+    # Calculate value mean for each group, keeping the correct dimensionality
+    group1_value_mean = np.mean(V_all[:, :, group_assignment == 0], axis=1).mean(axis=1)
+    group2_value_mean = np.mean(V_all[:, :, group_assignment == 1], axis=1).mean(axis=1)
 
     return group1_policy_mean, group2_policy_mean, group1_policy_variance, group2_policy_variance, reward_mean, group1_value_mean, group2_value_mean
 
