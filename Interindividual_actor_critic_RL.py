@@ -243,53 +243,47 @@ def plot_policy_and_value_all_agents(HP, policy_all, V_all, group_assignment):
     plt.show()
 
 
-# Given functions to calculate policy mean, variance, and reward mean
 def calculate_policy_mean(policy_all, group_assignment, HP):
-    group1_policy_mean = np.mean(policy_all[:, :, group_assignment == 0, 0], axis=0)
-    group2_policy_mean = np.mean(policy_all[:, :, group_assignment == 1, 1], axis=0)
+    group1_policy_mean = np.mean(policy_all[:, :, group_assignment == 0, 0], axis=2)
+    group2_policy_mean = np.mean(policy_all[:, :, group_assignment == 1, 1], axis=2)
     return group1_policy_mean, group2_policy_mean
 
 
 def calculate_policy_variance(policy_all, group_assignment, HP):
-    group1_policy_variance = np.var(policy_all[:, :, group_assignment == 0, 0], axis=0)
-    group2_policy_variance = np.var(policy_all[:, :, group_assignment == 1, 1], axis=0)
+    group1_policy_variance = np.var(policy_all[:, :, group_assignment == 0, 0], axis=2)
+    group2_policy_variance = np.var(policy_all[:, :, group_assignment == 1, 1], axis=2)
     return group1_policy_variance, group2_policy_variance
 
 
 def calculate_reward_mean(V_all, HP):
-    reward_mean = np.mean(V_all, axis=(0, 2))
+    reward_mean = np.mean(V_all, axis=(2,))
     return reward_mean
 
 
-# Function to calculate metrics over time
 def calculate_metrics_over_time(HP):
     adj_matrix, group_assignment = create_grouped_adj_matrix(HP)
     reward_mat = create_reward_mat(HP, group_assignment)
     policy_all, V_all, A_all = interindividual_actor_critic(HP, group_assignment, reward_mat, thetas_init='uniform',
                                                             return_values=True)
 
-    # Calculate metrics for each round across all trials
     group1_policy_mean, group2_policy_mean = calculate_policy_mean(policy_all, group_assignment, HP)
     group1_policy_variance, group2_policy_variance = calculate_policy_variance(policy_all, group_assignment, HP)
     reward_mean = calculate_reward_mean(V_all, HP)
 
-    # Calculate value function mean for each group over time
-    group1_value_mean = np.mean(V_all[:, :, group_assignment == 0], axis=2).flatten()
-    group2_value_mean = np.mean(V_all[:, :, group_assignment == 1], axis=2).flatten()
+    group1_value_mean = np.mean(V_all[:, :, group_assignment == 0], axis=2)
+    group2_value_mean = np.mean(V_all[:, :, group_assignment == 1], axis=2)
 
     return group1_policy_mean, group2_policy_mean, group1_policy_variance, group2_policy_variance, reward_mean, group1_value_mean, group2_value_mean
 
 
-# Function to plot the metrics over time
 def mean_plot_with_time(group1_policy_mean, group2_policy_mean,
                         group1_policy_variance, group2_policy_variance,
                         reward_mean, group1_value_mean, group2_value_mean):
-    n_rounds = len(group1_policy_mean)
+    n_rounds = group1_policy_mean.shape[0]
     rounds = np.arange(n_rounds)
 
     fig, axs = plt.subplots(2, 2, figsize=(14, 10))
 
-    # Plotting Policy Mean over time
     axs[0, 0].plot(rounds, group1_policy_mean, label='Group 1', color='blue')
     axs[0, 0].plot(rounds, group2_policy_mean, label='Group 2', color='green')
     axs[0, 0].set_title('Policy Mean Over Time')
@@ -298,7 +292,6 @@ def mean_plot_with_time(group1_policy_mean, group2_policy_mean,
     axs[0, 0].legend()
     axs[0, 0].grid(True)
 
-    # Plotting Policy Variance over time
     axs[0, 1].plot(rounds, group1_policy_variance, label='Group 1', color='blue')
     axs[0, 1].plot(rounds, group2_policy_variance, label='Group 2', color='green')
     axs[0, 1].set_title('Policy Variance Over Time')
@@ -307,14 +300,12 @@ def mean_plot_with_time(group1_policy_mean, group2_policy_mean,
     axs[0, 1].legend()
     axs[0, 1].grid(True)
 
-    # Plotting Reward Mean over time
     axs[1, 0].plot(rounds, reward_mean, label='Reward Mean', color='purple')
     axs[1, 0].set_title('Reward Mean Over Time')
     axs[1, 0].set_xlabel('Rounds')
     axs[1, 0].set_ylabel('Reward Mean')
     axs[1, 0].grid(True)
 
-    # Plotting Value Function over time
     axs[1, 1].plot(rounds, group1_value_mean, label='Group 1', color='blue')
     axs[1, 1].plot(rounds, group2_value_mean, label='Group 2', color='green')
     axs[1, 1].set_title('Value Function Over Time')
@@ -325,7 +316,6 @@ def mean_plot_with_time(group1_policy_mean, group2_policy_mean,
 
     plt.tight_layout()
     plt.show()
-
 
 
 
