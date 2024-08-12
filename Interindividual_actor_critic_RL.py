@@ -273,11 +273,11 @@ def calculate_value_function_mean(V_all, group_assignment, HP):
 
 
 def calculate_reward_mean(V_all, HP):
-    # Calculate the mean across agents (axis=2) and states (axis=3)
+    # Calculate the mean across agents and states
     reward_mean = np.mean(V_all, axis=(2, 3))
 
-    # Now average across trials (axis=0)
-    reward_mean = np.mean(reward_mean, axis=0)
+    # Now reshape to (100, 10) to match the number of rounds and average across the time steps in each round
+    reward_mean = reward_mean.reshape((HP['nt'] // HP['n_agents'], HP['n_agents'])).mean(axis=1)
 
     return reward_mean
 
