@@ -201,43 +201,43 @@ def update_adj_matrix(adj_mat, pe, learning_rate=0.001):
     return adj_mat
 
 
-HP = {'trials': 1, 'nt':10000, 'n_actions':2, 'lrs':0.2,'lrp':0.2,'lrm':0.1,
-      'ratio':0.5, 'dr':1, 'n_states':2, 'la':0, 'n_agents':10, 'd':2, # laמשנה את התוצאות לבדוק
-      'actions':['group1','group2'],
-      'rewards':{'group1':[1,-1],'group2':[1,-1]},
-      'reward_noise_var':{'selfish':[0,0],'coop':[0,0]}, # [self, other] variance of the noise
-      'adj_mat_group_conn':{'in_group':0.8,'out_group':0.2},
-      'adj_mat_threshold':{'high_t':0.90,'low_t':0.1}
-      }
-
-
-
-# יצירת הקצאת הקבוצות
-adj_matrix, group_assignment = create_grouped_adj_matrix(HP)
-# adj_matrix = binarize_adj_matrix(adj_matrix,HP)
-
-print("Adj matrix:")
-print(adj_matrix)
-
-# יצירת מטריצת התגמולים
-reward_mat = create_reward_mat(HP, group_assignment)
-
-print("Group Assignment:", group_assignment)
-print("Reward Matrix for Action 0 (group1):")
-print(reward_mat[:, :, 0])
-print("Reward Matrix for Action 1 (group2):")
-print(reward_mat[:, :, 1])
-# הרצת הפונקציה interindividual_actor_critic עם הפרמטרים הנתונים
-policy_all, V_all,A_all = interindividual_actor_critic(HP, group_assignment, reward_mat, thetas_init='uniform', return_values=True)
-# print(V_all[-1])
-
-
-# ניתוח תוצאות
-group1_action_preference = np.mean(policy_all[:, :, group_assignment == 0, 0], axis=(0, 1))
-group2_action_preference = np.mean(policy_all[:, :, group_assignment == 1, 1], axis=(0, 1))
-
-print("Group 1 Action Preference for 'group1' Action: ", group1_action_preference)
-print("Group 2 Action Preference for 'group2' Action: ", group2_action_preference)
+# HP = {'trials': 1, 'nt':10000, 'n_actions':2, 'lrs':0.2,'lrp':0.2,'lrm':0.1,
+#       'ratio':0.5, 'dr':1, 'n_states':2, 'la':0, 'n_agents':10, 'd':2, # laמשנה את התוצאות לבדוק
+#       'actions':['group1','group2'],
+#       'rewards':{'group1':[1,-1],'group2':[1,-1]},
+#       'reward_noise_var':{'selfish':[0,0],'coop':[0,0]}, # [self, other] variance of the noise
+#       'adj_mat_group_conn':{'in_group':0.8,'out_group':0.2},
+#       'adj_mat_threshold':{'high_t':0.90,'low_t':0.1}
+#       }
+#
+#
+#
+# # יצירת הקצאת הקבוצות
+# adj_matrix, group_assignment = create_grouped_adj_matrix(HP)
+# # adj_matrix = binarize_adj_matrix(adj_matrix,HP)
+#
+# print("Adj matrix:")
+# print(adj_matrix)
+#
+# # יצירת מטריצת התגמולים
+# reward_mat = create_reward_mat(HP, group_assignment)
+#
+# print("Group Assignment:", group_assignment)
+# print("Reward Matrix for Action 0 (group1):")
+# print(reward_mat[:, :, 0])
+# print("Reward Matrix for Action 1 (group2):")
+# print(reward_mat[:, :, 1])
+# # הרצת הפונקציה interindividual_actor_critic עם הפרמטרים הנתונים
+# policy_all, V_all,A_all = interindividual_actor_critic(HP, group_assignment, reward_mat, thetas_init='uniform', return_values=True)
+# # print(V_all[-1])
+#
+#
+# # ניתוח תוצאות
+# group1_action_preference = np.mean(policy_all[:, :, group_assignment == 0, 0], axis=(0, 1))
+# group2_action_preference = np.mean(policy_all[:, :, group_assignment == 1, 1], axis=(0, 1))
+#
+# print("Group 1 Action Preference for 'group1' Action: ", group1_action_preference)
+# print("Group 2 Action Preference for 'group2' Action: ", group2_action_preference)
 
 
 
@@ -278,7 +278,7 @@ def plot_policy_and_value_all_agents(HP, policy_all, V_all, group_assignment):
     plt.tight_layout()
     plt.show()
 
-plot_policy_and_value_all_agents(HP, policy_all, V_all, group_assignment)
+
 
 
 
