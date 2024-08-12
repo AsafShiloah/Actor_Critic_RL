@@ -90,7 +90,7 @@ def interindividual_actor_critic(HP, group_assignment, reward_mat, thetas_init='
 
                 for k in connected_agents:
                     # עדכון מטריצת קשרים בהתבסס על תגמול
-                    adj_mat = update_adj_matrix(adj_mat, pe, HP[lrm])
+                    adj_mat = update_adj_matrix(adj_mat, pe, HP['lrm'])
                     # להכפיל בכיוון השגיאה או בשגיאה?
                 adj_mat = binarize_adj_matrix(adj_mat, HP) # בינאריזציה של מטריצת הקשרים מעל או מתחת לסף
 
