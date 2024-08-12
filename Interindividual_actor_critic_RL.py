@@ -249,21 +249,15 @@ def calculate_policy_mean(policy_all, group_assignment, HP):
     return group1_policy_mean, group2_policy_mean
 
 
-# def calculate_policy_variance(policy_all, group_assignment, HP):
-#     group1_policy_variance = np.var(policy_all[:, :, group_assignment == 0, 0],axis=0).flatten()
-#     group2_policy_variance = np.var(policy_all[:, :, group_assignment == 1, 1],axis=0).flatten()
-#     return group1_policy_variance, group2_policy_variance
-
 def calculate_policy_variance(policy_all, group_assignment, HP):
-    # Extract policies for group 0 and group 1
-    group1_policies = policy_all[:, :, group_assignment == 0, :]
-    group2_policies = policy_all[:, :, group_assignment == 1, :]
+    group1_policy_variance = np.var(policy_all[:, :, group_assignment == 0, 0],axis=0).flatten()
+    group2_policy_variance = np.var(policy_all[:, :, group_assignment == 1, 1],axis=0).flatten()
 
-    # Calculate variance across all policies (axis=0) and actions (axis=-1)
-    group1_policy_variance = np.var(group1_policies, axis=0).flatten()
-    group2_policy_variance = np.var(group2_policies, axis=0).flatten()
-
+    print(policy_all[:, :, group_assignment == 0, 0].shape)
+    print(policy_all[:, :, group_assignment == 0, 0])
     return group1_policy_variance, group2_policy_variance
+
+
 
 
 def calculate_reward_mean(V_all, HP):
