@@ -257,10 +257,11 @@ def calculate_policy_variance(policy_all, group_assignment, HP):
 
 
 def calculate_value_function_mean(V_all, group_assignment, HP):
-    # Calculate the mean value function across agents and trials for each round
-    group1_value_mean = np.mean(V_all[:, :, group_assignment == 0], axis=(0, 2))
-    group2_value_mean = np.mean(V_all[:, :, group_assignment == 1], axis=(0, 2))
+    # Calculate the mean value function across trials, agents, and states for each round
+    group1_value_mean = np.mean(np.mean(V_all[:, :, group_assignment == 0], axis=2), axis=0)
+    group2_value_mean = np.mean(np.mean(V_all[:, :, group_assignment == 1], axis=2), axis=0)
     return group1_value_mean, group2_value_mean
+
 
 
 def calculate_reward_mean(V_all, HP):
