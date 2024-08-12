@@ -256,14 +256,14 @@ def calculate_policy_mean(policy_all, group_assignment, HP):
 
 def calculate_policy_variance(policy_all, group_assignment, HP):
     # Extract policies for group 0 and group 1
-    group0_policies = policy_all[:, :, group_assignment == 0, :]
-    group1_policies = policy_all[:, :, group_assignment == 1, :]
+    group1_policies = policy_all[:, :, group_assignment == 0, :]
+    group2_policies = policy_all[:, :, group_assignment == 1, :]
 
     # Calculate variance across all policies (axis=0) and actions (axis=-1)
-    group0_policy_variance = np.var(group0_policies, axis=0).flatten()
     group1_policy_variance = np.var(group1_policies, axis=0).flatten()
+    group2_policy_variance = np.var(group2_policies, axis=0).flatten()
 
-    return group0_policy_variance, group1_policy_variance
+    return group1_policy_variance, group2_policy_variance
 
 
 def calculate_reward_mean(V_all, HP):
