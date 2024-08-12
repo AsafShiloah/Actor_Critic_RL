@@ -201,43 +201,22 @@ def update_adj_matrix(adj_mat, pe, learning_rate=0.001):
     return adj_mat
 
 
-# HP = {'trials': 1, 'nt':10000, 'n_actions':2, 'lrs':0.2,'lrp':0.2,'lrm':0.1,
-#       'ratio':0.5, 'dr':1, 'n_states':2, 'la':0, 'n_agents':10, 'd':2, # laמשנה את התוצאות לבדוק
-#       'actions':['group1','group2'],
-#       'rewards':{'group1':[1,-1],'group2':[1,-1]},
-#       'reward_noise_var':{'selfish':[0,0],'coop':[0,0]}, # [self, other] variance of the noise
-#       'adj_mat_group_conn':{'in_group':0.8,'out_group':0.2},
-#       'adj_mat_threshold':{'high_t':0.90,'low_t':0.1}
-#       }
-#
-#
-#
-# # יצירת הקצאת הקבוצות
-# adj_matrix, group_assignment = create_grouped_adj_matrix(HP)
-# # adj_matrix = binarize_adj_matrix(adj_matrix,HP)
-#
-# print("Adj matrix:")
-# print(adj_matrix)
-#
-# # יצירת מטריצת התגמולים
-# reward_mat = create_reward_mat(HP, group_assignment)
-#
-# print("Group Assignment:", group_assignment)
-# print("Reward Matrix for Action 0 (group1):")
-# print(reward_mat[:, :, 0])
-# print("Reward Matrix for Action 1 (group2):")
-# print(reward_mat[:, :, 1])
-# # הרצת הפונקציה interindividual_actor_critic עם הפרמטרים הנתונים
-# policy_all, V_all,A_all = interindividual_actor_critic(HP, group_assignment, reward_mat, thetas_init='uniform', return_values=True)
-# # print(V_all[-1])
-#
-#
-# # ניתוח תוצאות
-# group1_action_preference = np.mean(policy_all[:, :, group_assignment == 0, 0], axis=(0, 1))
-# group2_action_preference = np.mean(policy_all[:, :, group_assignment == 1, 1], axis=(0, 1))
-#
-# print("Group 1 Action Preference for 'group1' Action: ", group1_action_preference)
-# print("Group 2 Action Preference for 'group2' Action: ", group2_action_preference)
+def calculate_policy_mean(policy_all, group_assignment, HP):
+    group1_policy_mean = np.mean(policy_all[:, :, group_assignment == 0, 0])
+    group2_policy_mean = np.mean(policy_all[:, :, group_assignment == 1, 1])
+    return group1_policy_mean, group2_policy_mean
+
+
+def calculate_policy_variance(policy_all, group_assignment, HP):
+    group1_policy_variance = np.var(policy_all[:, :, group_assignment == 0, 0])
+    group2_policy_variance = np.var(policy_all[:, :, group_assignment == 1, 1])
+    return group1_policy_variance, group2_policy_variance
+
+
+def calculate_reward_mean(V_all, HP):
+    reward_mean = np.mean(V_all[:, :, :])
+    return reward_mean
+
 
 
 
@@ -277,6 +256,53 @@ def plot_policy_and_value_all_agents(HP, policy_all, V_all, group_assignment):
 
     plt.tight_layout()
     plt.show()
+
+
+
+
+
+def mean_plot_with_time(group1_policy_mean, group2_policy_mean,
+                        group1_policy_variance, group2_policy_variance,
+                        reward_mean, group1_value_mean, group2_value_mean):
+    fig, axs = plt.subplots(2, 2, figsize=(14, 10))
+
+    # Plotting Policy Mean over time
+    axs[0, 0].plot(group1_policy_mean, label='Group 1', color='blue')
+    axs[0, 0].plot(group2_policy_mean, label='Group 2', color='green')
+    axs[0, 0].set_title('Policy Mean Over Time')
+    axs[0, 0].set_xlabel('Rounds')
+    axs[0, 0].set_ylabel('Policy Mean')
+    axs[0, 0].legend()
+    axs[0, 0].grid(True)
+
+    # Plotting Policy Variance over time
+    axs[0, 1].plot(group1_policy_variance, label='Group 1', color='blue')
+    axs[0, 1].plot(group2_policy_variance, label='Group 2', color='green')
+    axs[0, 1].set_title('Policy Variance Over Time')
+    axs[0, 1].set_xlabel('Rounds')
+    axs[0, 1].set_ylabel('Policy Variance')
+    axs[0, 1].legend()
+    axs[0, 1].grid(True)
+
+    # Plotting Reward Mean over time
+    axs[1, 0].plot(reward_mean, label='Reward Mean', color='purple')
+    axs[1, 0].set_title('Reward Mean Over Time')
+    axs[1, 0].set_xlabel('Rounds')
+    axs[1, 0].set_ylabel('Reward Mean')
+    axs[1, 0].grid(True)
+
+    # Plotting Value Function over time
+    axs[1, 1].plot(group1_value_mean, label='Group 1', color='blue')
+    axs[1, 1].plot(group2_value_mean, label='Group 2', color='green')
+    axs[1, 1].set_title('Value Function Over Time')
+    axs[1, 1].set_xlabel('Rounds')
+    axs[1, 1].set_ylabel('Value Function')
+    axs[1, 1].legend()
+    axs[1, 1].grid(True)
+
+    plt.tight_layout()
+    plt.show()
+
 
 
 
