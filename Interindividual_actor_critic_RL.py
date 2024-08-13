@@ -338,7 +338,7 @@ def mean_plot_with_time(group1_policy_mean, group2_policy_mean,
     axs[0, 1].grid(True)
 
     # Plot reward means by group
-    axs[1, 0].plot(rounds, reward_mean, label='Group 1', color='b', linewidth=1)
+    axs[1, 0].plot(rounds, reward_mean, label='mean reward', color='b', linewidth=1)
     axs[1, 0].set_title('Reward Mean Over Time')
     axs[1, 0].set_xlabel('Rounds')
     axs[1, 0].set_ylabel('Reward Mean')
