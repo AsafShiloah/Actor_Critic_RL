@@ -272,16 +272,14 @@ def calculate_value_function_mean(V_all, group_assignment, HP):
     return group1_value_mean, group2_value_mean
 
 
-def calculate_reward_mean_by_group(V_all, group_assignment, HP):
-    # Calculate the mean reward for Group 1 across agents and states
-    group1_values = np.mean(V_all[:, :, group_assignment == 0, :], axis=(2, 3))
-    group1_reward_mean = group1_values.reshape((HP['nt'] // HP['n_agents'], HP['n_agents'])).mean(axis=1)
+def calculate_reward_mean(V_all, HP):
+    # Calculate the mean reward across all agents and states
+    reward_mean = np.mean(V_all, axis=(2, 3))
 
-    # Calculate the mean reward for Group 2 across agents and states
-    group2_values = np.mean(V_all[:, :, group_assignment == 1, :], axis=(2, 3))
-    group2_reward_mean = group2_values.reshape((HP['nt'] // HP['n_agents'], HP['n_agents'])).mean(axis=1)
+    # Reshape to match the number of rounds and average across agents
+    reward_mean = reward_mean.reshape((HP['nt'] // HP['n_agents'], HP['n_agents'])).mean(axis=1)
 
-    return group1_reward_mean, group2_reward_mean
+    return reward_mean
 
 
 def calculate_metrics_over_time(HP):
@@ -291,19 +289,19 @@ def calculate_metrics_over_time(HP):
 
     group1_policy_mean, group2_policy_mean = calculate_policy_mean(policy_all, group_assignment, HP)
     group1_policy_variance, group2_policy_variance = calculate_policy_variance(policy_all, group_assignment, HP)
-    group1_reward_mean, group2_reward_mean = calculate_reward_mean_by_group(V_all,group_assignment, HP)
+    reward_mean = calculate_reward_mean(V_all, HP)
 
     # Calculate mean value function for each group
     group1_value_mean, group2_value_mean = calculate_value_function_mean(V_all, group_assignment, HP)
 
-    return group1_policy_mean, group2_policy_mean, group1_policy_variance, group2_policy_variance, group1_reward_mean, group2_reward_mean, group1_value_mean, group2_value_mean
+    return group1_policy_mean, group2_policy_mean, group1_policy_variance, group2_policy_variance, reward_mean, group1_value_mean, group2_value_mean
 
 
 
 
 def mean_plot_with_time(group1_policy_mean, group2_policy_mean,
                         group1_policy_variance, group2_policy_variance,
-                        group1_reward_mean, group2_reward_mean,
+                        reward_mean,
                         group1_value_mean, group2_value_mean):
     n_rounds = group1_policy_mean.shape[0]
     rounds = np.arange(n_rounds)
@@ -340,8 +338,7 @@ def mean_plot_with_time(group1_policy_mean, group2_policy_mean,
     axs[0, 1].grid(True)
 
     # Plot reward means by group
-    axs[1, 0].plot(rounds, group1_reward_mean, label='Group 1', color=pastel_colors['group1_reward_mean'], linewidth=1)
-    axs[1, 0].plot(rounds, group2_reward_mean, label='Group 2', color=pastel_colors['group2_reward_mean'], linewidth=1)
+    axs[1, 0].plot(rounds, reward_mean, label='Group 1', color='b', linewidth=1)
     axs[1, 0].set_title('Reward Mean Over Time')
     axs[1, 0].set_xlabel('Rounds')
     axs[1, 0].set_ylabel('Reward Mean')
