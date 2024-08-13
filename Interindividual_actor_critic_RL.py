@@ -96,6 +96,7 @@ def interindividual_actor_critic(HP, group_assignment, reward_mat, thetas_init='
                 adj_mat = binarize_adj_matrix(adj_mat, HP) # בינאריזציה של מטריצת הקשרים מעל או מתחת לסף
 
                 i += 1
+                print(adj_mat)
         policy_all[t, :, :, :] = np.copy(policy)
         if return_values:
             V_all[t, :, :, :] = np.copy(V)
