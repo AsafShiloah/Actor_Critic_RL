@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import networkx as nx
 from scipy.special import softmax
+import seaborn as sns
 
 def interindividual_actor_critic(HP, group_assignment, reward_mat, thetas_init='uniform', return_values=False, V_init='default'):
     n = HP['n_agents']  # מספר הסוכנים
@@ -101,7 +102,7 @@ def interindividual_actor_critic(HP, group_assignment, reward_mat, thetas_init='
             advantage_all[t, :, :, :, :] = np.copy(adv)
 
     if return_values:
-        return policy_all, V_all, advantage_all
+        return policy_all, V_all, advantage_all, adj_mat
     else:
         return policy_all, V
 
@@ -285,7 +286,7 @@ def calculate_reward_mean(V_all, HP):
 def calculate_metrics_over_time(HP):
     adj_matrix, group_assignment = create_grouped_adj_matrix(HP)
     reward_mat = create_reward_mat(HP, group_assignment)
-    policy_all, V_all, A_all = interindividual_actor_critic(HP, group_assignment, reward_mat, thetas_init='uniform', return_values=True)
+    policy_all, V_all, A_all,adj_matrix = interindividual_actor_critic(HP, group_assignment, reward_mat, thetas_init='uniform', return_values=True)
 
     group1_policy_mean, group2_policy_mean = calculate_policy_mean(policy_all, group_assignment, HP)
     group1_policy_variance, group2_policy_variance = calculate_policy_variance(policy_all, group_assignment, HP)
@@ -355,6 +356,14 @@ def mean_plot_with_time(group1_policy_mean, group2_policy_mean,
     axs[1, 1].grid(True)
 
     plt.tight_layout()
+    plt.show()
+
+def plot_connection_matrix(adj_matrix):
+    plt.figure(figsize=(10, 8))
+    sns.heatmap(adj_matrix, annot=False, cmap='Blues', cbar=True)
+    plt.title("Connection Matrix Heatmap")
+    plt.xlabel("Agent")
+    plt.ylabel("Agent")
     plt.show()
 
 
