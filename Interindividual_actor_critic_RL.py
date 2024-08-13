@@ -358,9 +358,9 @@ def mean_plot_with_time(group1_policy_mean, group2_policy_mean,
     plt.tight_layout()
     plt.show()
 
-def plot_connection_matrix(adj_matrix):
+def plot_connection_matrix(adj_matrix,color):
     plt.figure(figsize=(10, 8))
-    sns.heatmap(adj_matrix, annot=False, cmap='Blues', cbar=True)
+    sns.heatmap(adj_matrix, annot=False, cmap=color, cbar=True)
     plt.title("Connection Matrix Heatmap")
     plt.xlabel("Agent")
     plt.ylabel("Agent")
