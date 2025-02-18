@@ -19,13 +19,13 @@ Developed as part of a **Computational Cognition Lab** project, this repository 
 
 ## Example Result: Network Size and Polarization
 
-![SN Size Online Polarization](Graphs/two_groups/polarization_corr/SN_size_Online_Polarization.png)
+![SN Size Online Polarization](results/Graphs/two_groups/polarization_corr/SN_size_Online_Polarization.png)
 
 *Figure 1: As the social network grows (x-axis), polarization (blue line) increases. The green line shows how neutral actions change, and the red dashed line is the correlation trend.*
 
 ## Example Result: Neutral Reward and Mean Action Preference
 
-![Neutral Reward Mean Action Preference](Graphs/two_groups/Neutral_Reward_Mean_Action_Preference.png)
+![Neutral Reward Mean Action Preference](results/Graphs/two_groups/Neutral_Reward_Mean_Action_Preference.png)
 
 *Figure 2: Shows how a neutral reward influences average action preference.*
 
