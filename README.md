@@ -17,17 +17,18 @@ Developed as part of a **Computational Cognition Lab** project, this repository 
 - **`Traditional vs Online Social networks.pdf`**  
   - Explains the theoretical basis, experiment design, and key findings.
 
-## Example Result: Connection Strength and Polarization
+## Example Result: Network Size and Polarization
 
-![Connection Strength Online Polarization](Graphs/two_groups/polarization_corr/Connection_Strength_Online_Polarization.png)
+![SN Size Online Polarization](Graphs/two_groups/polarization_corr/SN_size_Online_Polarization.png)
 
-*Figure 1: As connection strength increases, polarization levels rise (blue line). The green line shows a decrease in neutral action preference, and the red dashed line is the Pearson correlation trend.*
+*Figure 1: As the social network grows (x-axis), polarization (blue line) increases. The green line shows how neutral actions change, and the red dashed line is the correlation trend.*
+
+## Example Result: Neutral Reward and Mean Action Preference
+
+![Neutral Reward Mean Action Preference](Graphs/two_groups/polarization_corr/Neutral_Reward_Mean_Action_Preference.png)
+
+*Figure 2: Shows how applying a neutral reward influences the average action preference (blue line). The green line might represent alternative actions, and the red dashed line indicates correlation.*
 
 
-
-
-*Figure 1: As connection strength increases, polarization levels rise (blue line). The green line shows a decrease in neutral action preference, and the red dashed line is the Pearson correlation trend.*
-
-
-
+For the **complete results and analysis**, please refer to the **final work** included in this repository.
 
