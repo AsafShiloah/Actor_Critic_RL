@@ -19,7 +19,12 @@ Developed as part of a **Computational Cognition Lab** project, this repository 
 
 ## Example Result: Connection Strength and Polarization
 
-![Effect of Connection Strength on Polarization in an Online Network](Connection_Strength_Online_Polarization.png)
+![Connection Strength Online Polarization](Graphs/two_groups/polarization_corr/Connection_Strength_Online_Polarization.png)
+
+*Figure 1: As connection strength increases, polarization levels rise (blue line). The green line shows a decrease in neutral action preference, and the red dashed line is the Pearson correlation trend.*
+
+
+
 
 *Figure 1: As connection strength increases, polarization levels rise (blue line). The green line shows a decrease in neutral action preference, and the red dashed line is the Pearson correlation trend.*
 
