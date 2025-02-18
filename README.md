@@ -7,15 +7,12 @@ Developed as part of a **Computational Cognition Lab** project, this repository 
 
 ## Contents
 
-- **`Interindividual_actor_critic_RL.py`**  
-  - Core Python script implementing the multi-agent Actor-Critic logic and social feedback mechanisms.
-- **`ACRL_TESTING.ipynb`**  
-  - Notebook for additional tests and parameter tuning using the Actor-Critic approach.
-- **`simulations.ipynb`**  
-  - Main notebook running multi-agent RL experiments under various network conditions (e.g., link strength, network size).
-  - Generates plots showing outcomes like consensus, polarization, and group behavior.
-- **`Traditional vs Online Social networks.pdf`**  
-  - Explains the theoretical basis, experiment design, and key findings.
+- `src/actor_critic_model.py`: Core Python script implementing the multi-agent Actor-Critic logic and social feedback mechanisms.
+- `notebooks/ACRL_TESTING.ipynb`: Notebook for additional tests and parameter tuning using the Actor-Critic approach.
+- `notebooks/simulations.ipynb`: Main notebook running multi-agent RL experiments under various network conditions (e.g., link strength, network size). Generates plots showing outcomes like consensus, polarization, and group behavior.
+- `docs/Traditional_vs_Online_Social_networks.pdf`: Explains the theoretical background contrasting traditional and online social networks.
+- `results/Graphs/`: Directory containing output plots and visualizations from experiments.
+
 
 ## Example Result: Network Size and Polarization
 
