@@ -25,10 +25,10 @@ Developed as part of a **Computational Cognition Lab** project, this repository 
 
 ## Example Result: Neutral Reward and Mean Action Preference
 
-![Neutral Reward Mean Action Preference]![Neutral Reward Mean Action Preference](Graphs/two_groups/polarization_corr/Neutral_Reward_Mean_Action_Preference.png)
+![Neutral Reward Mean Action Preference](Graphs/two_groups/polarization_corr/Neutral_Reward_Mean_Action_Preference.png)
 
 *Figure 2: Shows how applying a neutral reward influences the average action preference (blue line). The green line might represent alternative actions, and the red dashed line indicates correlation.*
 
-
 For the **complete results and analysis**, please refer to the **final work** included in this repository.
+
 
